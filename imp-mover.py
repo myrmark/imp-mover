@@ -40,9 +40,20 @@ if len(current_Imp) != 1:
         answer = input("Do you want to clear all files from the active IMP folder? [y/N]: ")
         if answer.lower() in ["y","yes"]:
             for f in current_Imp:
-                os.remove(f)
+                os.remove("/opt/icomera/ivalde/img/imp/{}".format(f))
         elif answer.lower() in ["n","no"]:
             break
+        else:
+            print("Please answer yes or no")
+elif len(current_Imp) == 1:
+    print("The following file was found in the imp folder: {}".format(current_Imp[0]))
+    while True:
+        answer = input("Do you want to delete the file and continue? [y/N]: ")
+        if answer.lower() in ["y","yes"]:
+            os.remove("/opt/icomera/ivalde/img/imp/{}".format(current_Imp[0]))
+            break
+        elif answer.lower() in ["n","no"]:
+            exit()
         else:
             print("Please answer yes or no")
 
