@@ -5,7 +5,6 @@
 """
 This script checks if there are any files in the imp folder, and asks the user if they want to delete the files.
 They can then copy a new IMP image from the imp_images folder to the imp folder
-
 Prerequisite: 
 - pick (installed with "pip3 install pick")
 - a imp_images folder located in /opt/icomera/ivalde/img containing IMP-images to copy from
@@ -29,7 +28,7 @@ except Exception:
 
 current_Imp = os.listdir("/opt/icomera/ivalde/img/imp")
 
-if len(current_Imp) != 1:
+if len(current_Imp) > 1:
     print("---WARNING---\n"
         "\n"
         "One or more files were found in the active IMP folder.\n"
@@ -43,6 +42,16 @@ if len(current_Imp) != 1:
                 os.remove("/opt/icomera/ivalde/img/imp/{}".format(f))
                 break
         elif answer.lower() in ["n","no"]:
+            print("\n"
+                "Please note that Eitre will use the first IMP image it can see in the folder\n")
+            while True:
+                answer = input("Do you want to continue anyway? [y/N]:")
+                if answer.lower() in ["y","yes"]:
+                    break
+                elif answer.lower() in ["n","no"]:
+                    exit()
+                else:
+                    print("Please answer yes or no")
             break
         else:
             print("Please answer yes or no")
@@ -57,18 +66,6 @@ elif len(current_Imp) == 1:
             exit()
         else:
             print("Please answer yes or no")
-
-print("\n"
-    "Please note that Eitre will use the first IMP image it can see in the folder\n")
-
-while True:
-    answer = input("Do you want to continue anyway? [y/N]:")
-    if answer.lower() in ["y","yes"]:
-        break
-    elif answer.lower() in ["n","no"]:
-        exit()
-    else:
-        print("Please answer yes or no")
 
 available_Imps = os.listdir("/opt/icomera/ivalde/img/imp_images")
 if len(available_Imps) == 0:
