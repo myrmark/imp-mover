@@ -1,9 +1,28 @@
 #!/bin/python3
 
+#Author Filip Malmberg
+
+"""
+This script checks if there are any files in the imp folder, and asks the user if they want to delete the files.
+They can then copy a new IMP image from the imp_images folder to the imp folder
+
+Prerequisite: pick (installed with "pip3 install pick")
+"""
+
 import os
 import subprocess
 
 from pick import pick
+
+try:
+    os.listdir("/opt/icomera/ivalde/img/imp_images")
+except Exception:
+    print("---WARNING---\n"
+        "\n"
+        "The imp_images folder was not found!\n"
+        "\n"
+        "---WARNING---\n")
+    exit()
 
 current_Imp = os.listdir("/opt/icomera/ivalde/img/imp")
 if len(current_Imp) != 1:
