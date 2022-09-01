@@ -41,6 +41,7 @@ if len(current_Imp) != 1:
         if answer.lower() in ["y","yes"]:
             for f in current_Imp:
                 os.remove("/opt/icomera/ivalde/img/imp/{}".format(f))
+                break
         elif answer.lower() in ["n","no"]:
             break
         else:
