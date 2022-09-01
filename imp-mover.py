@@ -25,6 +25,7 @@ except Exception:
     exit()
 
 current_Imp = os.listdir("/opt/icomera/ivalde/img/imp")
+
 if len(current_Imp) != 1:
     print("---WARNING---\n"
         "\n"
