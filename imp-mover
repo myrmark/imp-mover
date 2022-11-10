@@ -21,10 +21,10 @@ from pick import pick
 
 hostname = socket.gethostname()
 
-def send(imp):
-    msg = EmailMessage(f"{imp}")
+def send(imp,hostname):
+    msg = EmailMessage()
     msg["From"] = f"{hostname}@icomera.com"
-    msg["Subject"] = "New IMP image configured"
+    msg["Subject"] = f"New IMP image ({imp}) configured on {hostname}"
     msg["To"] = "production.se@icomera.com"
     try:
         s = smtplib.SMTP('smtp.icomera.com')
@@ -100,6 +100,6 @@ subprocess.call('cp /opt/icomera/ivalde/img/imp_images/{} /opt/icomera/ivalde/im
 
 if option in os.listdir("/opt/icomera/ivalde/img/imp/"):
     print("Successfully copied IMP image")
-    send(f"{option}")
+    send(option,hostname)
 else:
     print("Script was unsuccessful in copying the IMP image")
