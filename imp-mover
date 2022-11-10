@@ -12,9 +12,28 @@ Prerequisite:
 """
 
 import os
+import smtplib
+import socket
 import subprocess
 
+from email.message import EmailMessage
 from pick import pick
+
+hostname = socket.gethostname()
+
+def send(imp):
+    msg = EmailMessage(f"{imp}")
+    msg["From"] = f"{hostname}@icomera.com"
+    msg["Subject"] = "New IMP image configured"
+    msg["To"] = "production.se@icomera.com"
+    try:
+        s = smtplib.SMTP('smtp.icomera.com')
+        s.send_message(msg)
+        #print("Sent")
+    except smtplib.SMTPException:
+        #print("Not sent")
+        pass
+
 
 try:
     os.listdir("/opt/icomera/ivalde/img/imp_images")
@@ -81,5 +100,6 @@ subprocess.call('cp /opt/icomera/ivalde/img/imp_images/{} /opt/icomera/ivalde/im
 
 if option in os.listdir("/opt/icomera/ivalde/img/imp/"):
     print("Successfully copied IMP image")
+    send(f"{option}")
 else:
     print("Script was unsuccessful in copying the IMP image")
